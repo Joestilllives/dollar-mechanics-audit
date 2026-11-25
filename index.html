@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The 5-Minute US Money Leak Audit — Dollar Mechanics</title>
+  <meta name="description" content="Interactive US personal finance calculators by Dollar Mechanics: Big-Bank Savings Leak, Car Loan 84-Month Trap, 1% Advisor Fee Drain, and F-to-S Account Tier Audit." />
+  <style>
+    :root {
+      --alabaster: #f3f0e9;
+      --paper: #ffffff;
+      --navy: #0c1a30;
+      --ink: #0e1b30;
+      --muted: #556274;
+      --coral: #be2617;
+      --coral-dark: #ff4a36;
+      --teal: #0d7a6f;
+      --teal-dark: #2dd4bf;
+      --brass: #94660d;
+      --brass-dark: #e6b85c;
+      --rule: #d9d2c3;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--alabaster);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+    header {
+      background: var(--navy);
+      color: #f3ecdc;
+      padding: 28px 20px 36px;
+      border-bottom: 5px solid var(--brass-dark);
+    }
+    .wrap { max-width: 920px; margin: 0 auto; }
+    .micro {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal-dark);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .micro a { color: var(--brass-dark); text-decoration: none; font-weight: 700; }
+    h1 {
+      font-family: "Roboto Condensed", Impact, "Arial Narrow", sans-serif;
+      font-size: clamp(32px, 5vw, 54px);
+      line-height: 1.02;
+      margin: 16px 0 10px;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+    }
+    .sub { color: #c7d2e2; font-size: 17px; max-width: 680px; margin: 0; }
+    main { padding: 28px 20px 64px; }
+    .summary-bar {
+      background: var(--navy);
+      color: #f3ecdc;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 28px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      border: 1px solid #22385a;
+    }
+    .stat-lbl {
+      font-family: ui-monospace, monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #9eb0c8;
+    }
+    .stat-val {
+      font-family: "Roboto Condensed", Impact, sans-serif;
+      font-size: 36px;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+      margin-top: 2px;
+    }
+    .coral { color: var(--coral); }
+    .coral-d { color: var(--coral-dark); }
+    .teal { color: var(--teal); }
+    .teal-d { color: var(--teal-dark); }
+    .brass-d { color: var(--brass-dark); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 22px;
+    }
+    .card {
+      background: var(--paper);
+      border: 1.5px solid var(--rule);
+      border-top: 4px solid var(--navy);
+      border-radius: 10px;
+      padding: 22px;
+      box-shadow: 0 4px 16px rgba(14, 27, 48, 0.05);
+    }
+    .card.coral-top { border-top-color: var(--coral); }
+    .card.teal-top { border-top-color: var(--teal); }
+    .card.brass-top { border-top-color: var(--brass); }
+    .pill {
+      display: inline-block;
+      font-family: ui-monospace, monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: var(--navy);
+      color: #f3ecdc;
+      margin-bottom: 8px;
+    }
+    h2 {
+      font-family: "Roboto Condensed", sans-serif;
+      font-size: 24px;
+      text-transform: uppercase;
+      margin: 4px 0 12px;
+    }
+    label { display: block; font-size: 13px; font-weight: 700; margin: 12px 0 4px; color: var(--ink); }
+    input[type="number"], input[type="range"] {
+      width: 100%;
+      font-size: 16px;
+      padding: 8px 10px;
+      border: 1.5px solid var(--rule);
+      border-radius: 6px;
+      background: #faf8f3;
+      color: var(--ink);
+      font-variant-numeric: tabular-nums;
+    }
+    .out-box {
+      margin-top: 16px;
+      padding: 14px;
+      background: #f7f4ec;
+      border-left: 4px solid var(--coral);
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    .out-box.gain { border-left-color: var(--teal); }
+    .big-num {
+      font-family: "Roboto Condensed", sans-serif;
+      font-size: 30px;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+    }
+    .ladder { list-style: none; padding: 0; margin: 10px 0 0; }
+    .ladder li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--rule);
+      font-size: 14px;
+    }
+    .tier-badge {
+      width: 30px; height: 30px; border-radius: 6px;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-weight: 900; font-family: "Roboto Condensed", sans-serif; color: #fff; flex-shrink: 0;
+    }
+    .t-s { background: var(--brass); }
+    .t-a { background: var(--teal); }
+    .t-c { background: #64748b; }
+    .t-f { background: var(--coral); }
+    .cta-panel {
+      margin-top: 32px;
+      background: var(--navy);
+      color: #f3ecdc;
+      border-radius: 12px;
+      padding: 28px 24px;
+      border-left: 6px solid var(--teal-dark);
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 12px 22px;
+      background: var(--teal-dark);
+      color: var(--navy);
+      font-weight: 800;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+    .aff-grid {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+    }
+    .aff-card {
+      background: var(--paper);
+      border: 1.5px solid var(--rule);
+      border-radius: 8px;
+      padding: 16px;
+      font-size: 13px;
+    }
+    footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1.5px solid var(--rule);
+      font-size: 12px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="micro">
+        <span>■ DOLLAR MECHANICS // FREE US MONEY LEAK AUDIT</span>
+        <span><a href="media-kit.html">Sponsor &amp; Partner Media Kit →</a></span>
+      </div>
+      <h1>The 5-Minute US Money Leak Audit</h1>
+      <p class="sub">Plug your real numbers below to see exactly how much cash is quietly leaking to 0.01% banks, stretched car loans, and 1% investment fees.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="summary-bar" aria-live="polite">
+      <div>
+        <div class="stat-lbl">Annual Cash Leak (Savings)</div>
+        <div class="stat-val coral-d" id="sum_savings">$399/yr</div>
+      </div>
+      <div>
+        <div class="stat-lbl">Hidden Car Loan Interest</div>
+        <div class="stat-val coral-d" id="sum_car">$13,925</div>
+      </div>
+      <div>
+        <div class="stat-lbl">30-Yr 1% Fee Wealth Drain</div>
+        <div class="stat-val coral-d" id="sum_fee">$468,874</div>
+      </div>
+    </section>
+
+    <div class="grid">
+      <!-- Calculator 1: Savings Rate Leak (dm_47) -->
+      <article class="card coral-top">
+        <span class="pill">LEAK #1 · F-TIER VS. A-TIER SAVINGS</span>
+        <h2>Big-Bank 0.01% Cash Leak</h2>
+        <label for="sav_bal">Emergency / Cash Savings Balance ($)</label>
+        <input id="sav_bal" type="number" value="10000" min="0" step="500" />
+        <label for="sav_apy">Competitive Online Savings Rate (%)</label>
+        <input id="sav_apy" type="number" value="4.0" min="0.1" max="10" step="0.1" />
+        <div class="out-box">
+          Big bank (0.01%): <strong id="sav_bank">$1/yr</strong><br />
+          Online savings: <strong class="teal" id="sav_online">$400/yr</strong><br />
+          <div class="big-num coral" id="sav_diff">+$399/yr left on the table</div>
+          <small id="sav_mult">400× higher annual interest (FDIC-insured benchmarks).</small>
+        </div>
+      </article>
+
+      <!-- Calculator 2: Car Loan 4-Square Trap (dm_01 & dm_06) -->
+      <article class="card coral-top">
+        <span class="pill">LEAK #2 · DEALER 4-SQUARE MATH</span>
+        <h2>True Cost of Your Car Loan</h2>
+        <label for="car_price">Amount Financed ($)</label>
+        <input id="car_price" type="number" value="40000" min="1000" step="1000" />
+        <label for="car_apr">Interest Rate (APR %)</label>
+        <input id="car_apr" type="number" value="9.0" min="0" max="30" step="0.25" />
+        <label for="car_months">Loan Term (Months: 48 / 60 / 72 / 84)</label>
+        <input id="car_months" type="number" value="84" min="12" max="96" step="12" />
+        <div class="out-box">
+          Monthly payment: <strong id="car_pmt">$644/mo</strong><br />
+          Total paid to bank: <strong id="car_total">$54,058</strong><br />
+          <div class="big-num coral" id="car_int">$14,058 in pure interest</div>
+          <small>Rule of thumb: 20% down · max 48 months · under 10% gross income.</small>
+        </div>
+      </article>
+
+      <!-- Calculator 3: 1% Advisor Fee Drag (dm_04) -->
+      <article class="card brass-top">
+        <span class="pill">LEAK #3 · RETIREMENT FEE DRAG</span>
+        <h2>What a "Tiny" 1% Fee Really Takes</h2>
+        <label for="fee_start">Starting Portfolio ($)</label>
+        <input id="fee_start" type="number" value="100000" min="0" step="5000" />
+        <label for="fee_mo">Monthly Contribution ($)</label>
+        <input id="fee_mo" type="number" value="500" min="0" step="100" />
+        <label for="fee_yrs">Years Invested (at 7% avg return)</label>
+        <input id="fee_yrs" type="number" value="30" min="5" max="45" step="1" />
+        <div class="out-box">
+          0.03% Index Fund: <strong class="teal" id="fee_low">$1,357,000</strong><br />
+          1.00% Fee Fund: <strong id="fee_high">$1,095,000</strong><br />
+          <div class="big-num coral" id="fee_lost">$262,000 lost to 1% fee</div>
+          <small>Fees compound against you every single year.</small>
+        </div>
+      </article>
+
+      <!-- Calculator 4: Account Tier Ladder (dm_47, dm_05, dm_08) -->
+      <article class="card teal-top">
+        <span class="pill">ORDER OF OPERATIONS · S-TO-F TIER</span>
+        <h2>US Paycheck Tier Checklist</h2>
+        <ul class="ladder">
+          <li><span class="tier-badge t-s">S</span><div><strong>401(k) Employer Match</strong> — Instant 100% return (never skip).</div></li>
+          <li><span class="tier-badge t-s">S</span><div><strong>HSA + Roth IRA</strong> — Triple tax-free / 0% tax on qualified growth.</div></li>
+          <li><span class="tier-badge t-a">A</span><div><strong>4% Online Savings (FDIC)</strong> — 400× big-bank 0.01% rates.</div></li>
+          <li><span class="tier-badge t-c">C</span><div><strong>Debit Cards</strong> — Zero rewards, weaker Reg E fraud protection.</div></li>
+          <li><span class="tier-badge t-f">F</span><div><strong>30% Store Cards &amp; 0.01% Big-Bank Savings</strong> — Move out tonight.</div></li>
+        </ul>
+      </article>
+    </div>
+
+    <section class="cta-panel">
+      <div class="micro" style="margin-bottom:8px;"><span>NEXT STEP · AUTOMATE YOUR PAYCHECK</span></div>
+      <h2 style="margin:0 0 8px; color:#f3ecdc;">Want the Complete US Paycheck &amp; Net-Worth Automation OS?</h2>
+      <p style="margin:0; color:#c7d2e2; max-width:660px;">Get the plug-and-play Google Sheets + Notion dashboard that tracks your exact account order, 20/4/10 car cap, $100K crossover countdown, and recurring leak alerts.</p>
+      <a class="btn" href="#gumroad-checkout-url">Get the Automation OS ($19) →</a>
+    </section>
+
+    <section style="margin-top:32px;">
+      <h2 style="margin-bottom:6px;">Tools That Plug These Leaks</h2>
+      <p style="margin:0 0 14px; font-size:13px; color:var(--muted);"><strong>FTC Affiliate Disclosure:</strong> Some links below may be partner links — if you sign up, Dollar Mechanics may earn a commission at zero extra cost to you. We only list regulated US tools aligned with the math above.</p>
+      <div class="aff-grid">
+        <div class="aff-card">
+          <strong>High-Yield Online Savings (A-Tier)</strong><br />
+          Compare FDIC-insured 4%+ online savings accounts vs. 0.01% big banks.<br />
+          <em>[Insert Impact / SoFi partner link once approved]</em>
+        </div>
+        <div class="aff-card">
+          <strong>Subscription &amp; Bill Leak Tracker</strong><br />
+          Automatically spot forgotten recurring charges &amp; negotiate bills.<br />
+          <em>[Insert Impact / Rocket Money partner link once approved]</em>
+        </div>
+        <div class="aff-card">
+          <strong>Free Credit Score &amp; Rate Monitor</strong><br />
+          Audit card APRs and utilization before applying for auto or mortgage loans.<br />
+          <em>[Insert Awin / Credit Karma partner link once approved]</em>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <strong>Educational Disclaimer:</strong> All calculators and figures on Dollar Mechanics are for educational and informational purposes only and do not constitute personalized financial, tax, legal, or investment advice. Always verify current FDIC, IRS, and lender terms.<br />
+      © 2026 Dollar Mechanics (@dollarmechanics) · <a href="media-kit.html" style="color:var(--ink);">Partner &amp; Sponsor Media Kit</a>
+    </footer>
+  </main>
+
+  <script>
+    const fmt = (n) => "$" + Math.round(n).toLocaleString("en-US");
+    function recalc() {
+      // 1. Savings leak
+      const bal = Math.max(0, Number(document.getElementById("sav_bal").value) || 0);
+      const apy = Math.max(0, Number(document.getElementById("sav_apy").value) || 0);
+      const bankYr = bal * 0.0001;
+      const onlineYr = bal * (apy / 100);
+      const diff = Math.max(0, onlineYr - bankYr);
+      document.getElementById("sav_bank").textContent = fmt(bankYr) + "/yr";
+      document.getElementById("sav_online").textContent = fmt(onlineYr) + "/yr";
+      document.getElementById("sav_diff").textContent = "+" + fmt(diff) + "/yr left on the table";
+      document.getElementById("sav_mult").textContent = `${Math.round(apy / 0.01)}× higher annual interest (FDIC-insured benchmarks).`;
+      document.getElementById("sum_savings").textContent = fmt(diff) + "/yr";
+
+      // 2. Car loan amortization
+      const P = Math.max(0, Number(document.getElementById("car_price").value) || 0);
+      const r = (Math.max(0, Number(document.getElementById("car_apr").value) || 0) / 100) / 12;
+      const n = Math.max(1, Number(document.getElementById("car_months").value) || 60);
+      const pmt = r > 0 ? (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1) : P / n;
+      const tot = pmt * n;
+      const intr = Math.max(0, tot - P);
+      document.getElementById("car_pmt").textContent = fmt(pmt) + "/mo";
+      document.getElementById("car_total").textContent = fmt(tot);
+      document.getElementById("car_int").textContent = fmt(intr) + " in pure interest";
+      document.getElementById("sum_car").textContent = fmt(intr);
+
+      // 3. 1% Fee drag
+      const p0 = Math.max(0, Number(document.getElementById("fee_start").value) || 0);
+      const mo = Math.max(0, Number(document.getElementById("fee_mo").value) || 0);
+      const yrs = Math.max(1, Number(document.getElementById("fee_yrs").value) || 30);
+      const fv = (annualRate) => {
+        const rm = annualRate / 12;
+        const m = yrs * 12;
+        return p0 * Math.pow(1 + rm, m) + mo * ((Math.pow(1 + rm, m) - 1) / rm);
+      };
+      const lowFee = fv(0.07 - 0.0003);
+      const highFee = fv(0.07 - 0.01);
+      const lost = Math.max(0, lowFee - highFee);
+      document.getElementById("fee_low").textContent = fmt(lowFee);
+      document.getElementById("fee_high").textContent = fmt(highFee);
+      document.getElementById("fee_lost").textContent = fmt(lost) + " lost to 1% fee";
+      document.getElementById("sum_fee").textContent = fmt(lost);
+    }
+    document.querySelectorAll("input").forEach((el) => el.addEventListener("input", recalc));
+    recalc();
+  </script>
+</body>
+</html>
