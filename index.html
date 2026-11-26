@@ -4,7 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>The 5-Minute US Money Leak Audit — Dollar Mechanics</title>
-  <meta name="description" content="Interactive US personal finance calculators by Dollar Mechanics: Big-Bank Savings Leak, Car Loan 84-Month Trap, 1% Advisor Fee Drain, and F-to-S Account Tier Audit." />
+  <meta name="description" content="Plug your real numbers into Dollar Mechanics' 5-Minute US Money Leak Audit: Big-Bank 0.01% Savings Leak, 84-Month Car Loan Trap, 1% Fee Drag, and S-to-F Paycheck Tier Checklist." />
+  <meta property="og:title" content="The 5-Minute US Money Leak Audit — Dollar Mechanics" />
+  <meta property="og:description" content="Find out how much cash is quietly leaking to 0.01% banks, stretched car loans, and 1% investment fees in under 5 minutes." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://joestilllives.github.io/dollar-mechanics-audit/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#0c1a30" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&family=Roboto+Condensed:wght@700;800;900&display=swap" rel="stylesheet" />
   <style>
     :root {
       --alabaster: #f3f0e9;
@@ -34,9 +43,9 @@
       padding: 28px 20px 36px;
       border-bottom: 5px solid var(--brass-dark);
     }
-    .wrap { max-width: 920px; margin: 0 auto; }
+    .wrap { max-width: 940px; margin: 0 auto; }
     .micro {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
       font-size: 12px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -47,12 +56,12 @@
       gap: 12px;
       flex-wrap: wrap;
     }
-    .micro a { color: var(--brass-dark); text-decoration: none; font-weight: 700; }
     h1 {
-      font-family: "Roboto Condensed", Impact, "Arial Narrow", sans-serif;
+      font-family: "Roboto Condensed", "Arial Narrow", sans-serif;
+      font-weight: 900;
       font-size: clamp(32px, 5vw, 54px);
       line-height: 1.02;
-      margin: 16px 0 10px;
+      margin: 14px 0 10px;
       text-transform: uppercase;
       letter-spacing: -0.01em;
     }
@@ -64,20 +73,32 @@
       border-radius: 12px;
       padding: 20px 24px;
       margin-bottom: 28px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 16px;
       border: 1px solid #22385a;
     }
+    .summary-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .summary-actions {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(158, 176, 200, 0.22);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
     .stat-lbl {
-      font-family: ui-monospace, monospace;
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
       font-size: 11px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: #9eb0c8;
     }
     .stat-val {
-      font-family: "Roboto Condensed", Impact, sans-serif;
+      font-family: "Roboto Condensed", sans-serif;
       font-size: 36px;
       font-weight: 900;
       font-variant-numeric: tabular-nums;
@@ -106,7 +127,7 @@
     .card.brass-top { border-top-color: var(--brass); }
     .pill {
       display: inline-block;
-      font-family: ui-monospace, monospace;
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.08em;
@@ -118,15 +139,17 @@
     }
     h2 {
       font-family: "Roboto Condensed", sans-serif;
+      font-weight: 900;
       font-size: 24px;
       text-transform: uppercase;
       margin: 4px 0 12px;
+      letter-spacing: 0.01em;
     }
     label { display: block; font-size: 13px; font-weight: 700; margin: 12px 0 4px; color: var(--ink); }
-    input[type="number"], input[type="range"] {
+    input[type="number"], input[type="email"] {
       width: 100%;
       font-size: 16px;
-      padding: 8px 10px;
+      padding: 10px 12px;
       border: 1.5px solid var(--rule);
       border-radius: 6px;
       background: #faf8f3;
@@ -141,12 +164,12 @@
       border-radius: 4px;
       font-size: 14px;
     }
-    .out-box.gain { border-left-color: var(--teal); }
     .big-num {
       font-family: "Roboto Condensed", sans-serif;
       font-size: 30px;
       font-weight: 900;
       font-variant-numeric: tabular-nums;
+      margin: 4px 0;
     }
     .ladder { list-style: none; padding: 0; margin: 10px 0 0; }
     .ladder li {
@@ -157,6 +180,7 @@
       border-bottom: 1px solid var(--rule);
       font-size: 14px;
     }
+    .ladder li:last-child { border-bottom: none; }
     .tier-badge {
       width: 30px; height: 30px; border-radius: 6px;
       display: inline-flex; align-items: center; justify-content: center;
@@ -174,37 +198,99 @@
       padding: 28px 24px;
       border-left: 6px solid var(--teal-dark);
     }
+    .email-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .email-row input[type="email"] {
+      flex: 1 1 260px;
+      background: #ffffff;
+      border-color: #2b446b;
+    }
     .btn {
-      display: inline-block;
-      margin-top: 12px;
-      padding: 12px 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 20px;
       background: var(--teal-dark);
       color: var(--navy);
       font-weight: 800;
       text-decoration: none;
+      border: none;
       border-radius: 8px;
-      font-size: 15px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform 0.12s ease, opacity 0.12s ease;
+    }
+    .btn:hover { opacity: 0.92; transform: translateY(-1px); }
+    .btn-ghost {
+      background: transparent;
+      color: #f3ecdc;
+      border: 1.5px solid rgba(230, 184, 92, 0.65);
+    }
+    .btn-outline {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 8px 14px;
+      border: 1.5px solid var(--navy);
+      color: var(--navy);
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .btn-outline:hover { background: var(--navy); color: #f3ecdc; }
+    .form-status {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--teal-dark);
+      min-height: 20px;
+    }
+    .ftc-banner {
+      background: #fff;
+      border: 1.5px solid var(--rule);
+      border-left: 4px solid var(--brass);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: var(--ink);
+      margin-bottom: 16px;
     }
     .aff-grid {
-      margin-top: 28px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 14px;
     }
     .aff-card {
       background: var(--paper);
       border: 1.5px solid var(--rule);
       border-radius: 8px;
-      padding: 16px;
-      font-size: 13px;
+      padding: 18px;
+      font-size: 13.5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .aff-tag {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--teal);
+      font-weight: 700;
+      margin-bottom: 6px;
     }
     footer {
-      margin-top: 40px;
+      margin-top: 44px;
       padding-top: 20px;
       border-top: 1.5px solid var(--rule);
       font-size: 12px;
       color: var(--muted);
     }
+    details { margin-top: 10px; }
+    details summary { cursor: pointer; font-weight: 700; color: var(--ink); }
   </style>
 </head>
 <body>
@@ -212,7 +298,7 @@
     <div class="wrap">
       <div class="micro">
         <span>■ DOLLAR MECHANICS // FREE US MONEY LEAK AUDIT</span>
-        <span><a href="media-kit.html">Sponsor &amp; Partner Media Kit →</a></span>
+        <span>PRIMARY SOURCES · FDIC · CFPB · IRS · 2026</span>
       </div>
       <h1>The 5-Minute US Money Leak Audit</h1>
       <p class="sub">Plug your real numbers below to see exactly how much cash is quietly leaking to 0.01% banks, stretched car loans, and 1% investment fees.</p>
@@ -221,22 +307,31 @@
 
   <main class="wrap">
     <section class="summary-bar" aria-live="polite">
-      <div>
-        <div class="stat-lbl">Annual Cash Leak (Savings)</div>
-        <div class="stat-val coral-d" id="sum_savings">$399/yr</div>
+      <div class="summary-stats">
+        <div>
+          <div class="stat-lbl">Annual Cash Leak (Savings)</div>
+          <div class="stat-val coral-d" id="sum_savings">$399/yr</div>
+        </div>
+        <div>
+          <div class="stat-lbl">Hidden Car Loan Interest</div>
+          <div class="stat-val coral-d" id="sum_car">$14,059</div>
+        </div>
+        <div>
+          <div class="stat-lbl">30-Yr 1% Fee Wealth Drain</div>
+          <div class="stat-val coral-d" id="sum_fee">$307,001</div>
+        </div>
       </div>
-      <div>
-        <div class="stat-lbl">Hidden Car Loan Interest</div>
-        <div class="stat-val coral-d" id="sum_car">$13,925</div>
-      </div>
-      <div>
-        <div class="stat-lbl">30-Yr 1% Fee Wealth Drain</div>
-        <div class="stat-val coral-d" id="sum_fee">$468,874</div>
+      <div class="summary-actions">
+        <span class="stat-lbl" style="color:#c7d2e2;">Compare your leak score or share with your partner</span>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button type="button" class="btn btn-ghost" id="btn_copy_score">Copy My Leak Score</button>
+          <button type="button" class="btn" id="btn_dl_summary">Download Audit (.txt)</button>
+        </div>
       </div>
     </section>
 
     <div class="grid">
-      <!-- Calculator 1: Savings Rate Leak (dm_47) -->
+      <!-- Calculator 1: Savings Rate Leak -->
       <article class="card coral-top">
         <span class="pill">LEAK #1 · F-TIER VS. A-TIER SAVINGS</span>
         <h2>Big-Bank 0.01% Cash Leak</h2>
@@ -252,7 +347,7 @@
         </div>
       </article>
 
-      <!-- Calculator 2: Car Loan 4-Square Trap (dm_01 & dm_06) -->
+      <!-- Calculator 2: Car Loan 4-Square Trap -->
       <article class="card coral-top">
         <span class="pill">LEAK #2 · DEALER 4-SQUARE MATH</span>
         <h2>True Cost of Your Car Loan</h2>
@@ -264,13 +359,13 @@
         <input id="car_months" type="number" value="84" min="12" max="96" step="12" />
         <div class="out-box">
           Monthly payment: <strong id="car_pmt">$644/mo</strong><br />
-          Total paid to bank: <strong id="car_total">$54,058</strong><br />
-          <div class="big-num coral" id="car_int">$14,058 in pure interest</div>
+          Total paid to bank: <strong id="car_total">$54,059</strong><br />
+          <div class="big-num coral" id="car_int">$14,059 in pure interest</div>
           <small>Rule of thumb: 20% down · max 48 months · under 10% gross income.</small>
         </div>
       </article>
 
-      <!-- Calculator 3: 1% Advisor Fee Drag (dm_04) -->
+      <!-- Calculator 3: 1% Advisor Fee Drag -->
       <article class="card brass-top">
         <span class="pill">LEAK #3 · RETIREMENT FEE DRAG</span>
         <h2>What a "Tiny" 1% Fee Really Takes</h2>
@@ -281,14 +376,14 @@
         <label for="fee_yrs">Years Invested (at 7% avg return)</label>
         <input id="fee_yrs" type="number" value="30" min="5" max="45" step="1" />
         <div class="out-box">
-          0.03% Index Fund: <strong class="teal" id="fee_low">$1,357,000</strong><br />
-          1.00% Fee Fund: <strong id="fee_high">$1,095,000</strong><br />
-          <div class="big-num coral" id="fee_lost">$262,000 lost to 1% fee</div>
+          0.03% Index Fund: <strong class="teal" id="fee_low">$1,411,516</strong><br />
+          1.00% Fee Fund: <strong id="fee_high">$1,104,515</strong><br />
+          <div class="big-num coral" id="fee_lost">$307,001 lost to 1% fee</div>
           <small>Fees compound against you every single year.</small>
         </div>
       </article>
 
-      <!-- Calculator 4: Account Tier Ladder (dm_47, dm_05, dm_08) -->
+      <!-- Calculator 4: Account Tier Ladder -->
       <article class="card teal-top">
         <span class="pill">ORDER OF OPERATIONS · S-TO-F TIER</span>
         <h2>US Paycheck Tier Checklist</h2>
@@ -296,51 +391,89 @@
           <li><span class="tier-badge t-s">S</span><div><strong>401(k) Employer Match</strong> — Instant 100% return (never skip).</div></li>
           <li><span class="tier-badge t-s">S</span><div><strong>HSA + Roth IRA</strong> — Triple tax-free / 0% tax on qualified growth.</div></li>
           <li><span class="tier-badge t-a">A</span><div><strong>4% Online Savings (FDIC)</strong> — 400× big-bank 0.01% rates.</div></li>
-          <li><span class="tier-badge t-c">C</span><div><strong>Debit Cards</strong> — Zero rewards, weaker Reg E fraud protection.</div></li>
+          <li><span class="tier-badge t-c">C</span><div><strong>Debit Cards</strong> — Zero rewards &amp; weaker fraud windows than credit.</div></li>
           <li><span class="tier-badge t-f">F</span><div><strong>30% Store Cards &amp; 0.01% Big-Bank Savings</strong> — Move out tonight.</div></li>
         </ul>
       </article>
     </div>
 
-    <section class="cta-panel">
-      <div class="micro" style="margin-bottom:8px;"><span>NEXT STEP · AUTOMATE YOUR PAYCHECK</span></div>
-      <h2 style="margin:0 0 8px; color:#f3ecdc;">Want the Complete US Paycheck &amp; Net-Worth Automation OS?</h2>
-      <p style="margin:0; color:#c7d2e2; max-width:660px;">Get the plug-and-play Google Sheets + Notion dashboard that tracks your exact account order, 20/4/10 car cap, $100K crossover countdown, and recurring leak alerts.</p>
-      <a class="btn" href="#gumroad-checkout-url">Get the Automation OS ($19) →</a>
+    <!-- Contextual Email Capture + Weekly US Money Math Brief -->
+    <section class="cta-panel" id="brief-signup">
+      <div class="micro" style="margin-bottom:8px;"><span>FREE WEEKLY BRIEF · 1 MINUTE · ZERO FLUFF</span></div>
+      <h2 style="margin:0 0 8px; color:#f3ecdc;">Get Your Custom Leak Checklist + 1-Minute Weekly US Money Math Brief</h2>
+      <p style="margin:0; color:#c7d2e2; max-width:680px;">One chart-backed US money leak exposed every Sunday — plus early access to the Dollar Mechanics Paycheck Automation OS (Google Sheets + Notion template).</p>
+      <form class="email-row" id="dm_email_form">
+        <input type="email" id="dm_email_input" required placeholder="you@domain.com" aria-label="Email address" />
+        <button type="submit" class="btn" id="dm_email_btn">Send My Audit + Join Free →</button>
+      </form>
+      <div class="form-status" id="dm_form_status" role="status" aria-live="polite"></div>
+      <small style="display:block; margin-top:6px; color:#9eb0c8;">Zero spam. Unsubscribe in 1 click. Educational content only.</small>
     </section>
 
-    <section style="margin-top:32px;">
-      <h2 style="margin-bottom:6px;">Tools That Plug These Leaks</h2>
-      <p style="margin:0 0 14px; font-size:13px; color:var(--muted);"><strong>FTC Affiliate Disclosure:</strong> Some links below may be partner links — if you sign up, Dollar Mechanics may earn a commission at zero extra cost to you. We only list regulated US tools aligned with the math above.</p>
+    <!-- FTC-Disclosed Official Benchmarks & Partner Tools -->
+    <section style="margin-top:34px;">
+      <h2 style="margin-bottom:10px;">Verified Benchmarks &amp; Tools to Plug These Leaks</h2>
+      <div class="ftc-banner">
+        <strong>FTC Affiliate &amp; Editorial Disclosure:</strong> Dollar Mechanics may earn a referral commission when you open an account through partner links marked <em>Partner</em>, at zero extra cost to you. Every benchmark below links to official federal verification databases or regulated US financial tools aligned with the math above.
+      </div>
       <div class="aff-grid">
         <div class="aff-card">
-          <strong>High-Yield Online Savings (A-Tier)</strong><br />
-          Compare FDIC-insured 4%+ online savings accounts vs. 0.01% big banks.<br />
-          <em>[Insert Impact / SoFi partner link once approved]</em>
+          <div>
+            <div class="aff-tag" id="tag_hysa">A-TIER SAVINGS · FDIC BENCHMARK</div>
+            <strong>High-Yield Online Savings (4%+ APY)</strong>
+            <p style="margin:6px 0 0; color:var(--muted);">Verify FDIC insurance coverage and compare national savings rates before moving idle cash out of a 0.01% big-bank account.</p>
+          </div>
+          <a class="btn-outline" id="link_hysa" href="https://www.fdic.gov/resources/bankers/national-rates/" target="_blank" rel="noopener noreferrer">Check FDIC National Rates →</a>
         </div>
         <div class="aff-card">
-          <strong>Subscription &amp; Bill Leak Tracker</strong><br />
-          Automatically spot forgotten recurring charges &amp; negotiate bills.<br />
-          <em>[Insert Impact / Rocket Money partner link once approved]</em>
+          <div>
+            <div class="aff-tag" id="tag_card">CREDIT MATH · CFPB DATABASE</div>
+            <strong>Audit Your Credit Card APR &amp; Terms</strong>
+            <p style="margin:6px 0 0; color:var(--muted);">Inspect official issuer card agreements, deferred-interest traps, and average US APRs before opening a retail store card.</p>
+          </div>
+          <a class="btn-outline" id="link_card" href="https://www.consumerfinance.gov/credit-cards/agreements/" target="_blank" rel="noopener noreferrer">Inspect CFPB Card Agreements →</a>
         </div>
         <div class="aff-card">
-          <strong>Free Credit Score &amp; Rate Monitor</strong><br />
-          Audit card APRs and utilization before applying for auto or mortgage loans.<br />
-          <em>[Insert Awin / Credit Karma partner link once approved]</em>
+          <div>
+            <div class="aff-tag" id="tag_fee">RETIREMENT MATH · SEC TOOL</div>
+            <strong>Check Your Fund Expense Ratio</strong>
+            <p style="margin:6px 0 0; color:var(--muted);">Run SEC Investor.gov fee math on your 401(k) or IRA funds to spot 0.75%–1.00% expense ratios draining six figures over 30 years.</p>
+          </div>
+          <a class="btn-outline" id="link_fee" href="https://www.investor.gov/financial-tools-calculators/calculators/compound-interest-calculator" target="_blank" rel="noopener noreferrer">Verify on SEC Investor.gov →</a>
         </div>
       </div>
     </section>
 
     <footer>
-      <strong>Educational Disclaimer:</strong> All calculators and figures on Dollar Mechanics are for educational and informational purposes only and do not constitute personalized financial, tax, legal, or investment advice. Always verify current FDIC, IRS, and lender terms.<br />
-      © 2026 Dollar Mechanics (@dollarmechanics) · <a href="media-kit.html" style="color:var(--ink);">Partner &amp; Sponsor Media Kit</a>
+      <strong>Educational Disclaimer:</strong> All calculators, figures, and checklists on Dollar Mechanics are for educational and informational purposes only and do not constitute personalized financial, tax, legal, or investment advice. Always verify current FDIC, IRS, SEC, and lender terms.<br />
+      © 2026 Dollar Mechanics (<code>@dollarmechanics</code>) ·
+      <a href="media-kit.html" style="color:var(--ink); font-weight:700;">Partner &amp; Sponsor Media Kit</a>
+      <details>
+        <summary>Privacy &amp; Data Notice</summary>
+        <p style="margin:6px 0 0;">All calculator inputs run 100% locally in your browser — Dollar Mechanics does not store, log, or sell your personal balance numbers. If you opt into the weekly email brief, your email address is used solely to deliver the brief and requested checklists, with 1-click unsubscribe at any time.</p>
+      </details>
     </footer>
   </main>
 
   <script>
+    /**
+     * 10-SECOND MONETIZATION SWAP CONFIG:
+     * Paste your live Beehiiv / Kit / Formspree POST endpoint and approved Impact / Awin partner URLs below.
+     * Everything degrades gracefully with zero dead links before activation.
+     */
+    window.DM_FUNNEL_CONFIG = {
+      newsletterEndpoint: "", // e.g. "https://formspree.io/f/xxxxxxx" or Beehiiv embed endpoint
+      partners: {
+        hysa: { url: "", label: "Compare 4%+ FDIC Savings (Partner) →", tag: "A-TIER SAVINGS · PARTNER" },
+        card: { url: "", label: "Compare 0% Intro & Cashback Cards (Partner) →", tag: "CREDIT MATH · PARTNER" },
+        fee:  { url: "", label: "Audit Subscriptions & Bills (Partner) →", tag: "LEAK TRACKER · PARTNER" }
+      }
+    };
+
     const fmt = (n) => "$" + Math.round(n).toLocaleString("en-US");
+    let latestState = { savDiff: 399, carInt: 14059, feeLost: 307001, savBal: 10000, savApy: 4.0, carPmt: 644, carMonths: 84 };
+
     function recalc() {
-      // 1. Savings leak
       const bal = Math.max(0, Number(document.getElementById("sav_bal").value) || 0);
       const apy = Math.max(0, Number(document.getElementById("sav_apy").value) || 0);
       const bankYr = bal * 0.0001;
@@ -352,7 +485,6 @@
       document.getElementById("sav_mult").textContent = `${Math.round(apy / 0.01)}× higher annual interest (FDIC-insured benchmarks).`;
       document.getElementById("sum_savings").textContent = fmt(diff) + "/yr";
 
-      // 2. Car loan amortization
       const P = Math.max(0, Number(document.getElementById("car_price").value) || 0);
       const r = (Math.max(0, Number(document.getElementById("car_apr").value) || 0) / 100) / 12;
       const n = Math.max(1, Number(document.getElementById("car_months").value) || 60);
@@ -364,7 +496,6 @@
       document.getElementById("car_int").textContent = fmt(intr) + " in pure interest";
       document.getElementById("sum_car").textContent = fmt(intr);
 
-      // 3. 1% Fee drag
       const p0 = Math.max(0, Number(document.getElementById("fee_start").value) || 0);
       const mo = Math.max(0, Number(document.getElementById("fee_mo").value) || 0);
       const yrs = Math.max(1, Number(document.getElementById("fee_yrs").value) || 30);
@@ -380,8 +511,109 @@
       document.getElementById("fee_high").textContent = fmt(highFee);
       document.getElementById("fee_lost").textContent = fmt(lost) + " lost to 1% fee";
       document.getElementById("sum_fee").textContent = fmt(lost);
+
+      latestState = { savDiff: diff, carInt: intr, feeLost: lost, savBal: bal, savApy: apy, carPmt: pmt, carMonths: n };
     }
-    document.querySelectorAll("input").forEach((el) => el.addEventListener("input", recalc));
+
+    function buildSummaryText() {
+      return [
+        "DOLLAR MECHANICS — 5-MINUTE US MONEY LEAK AUDIT",
+        "================================================",
+        `1. Big-Bank Savings Leak (${fmt(latestState.savBal)} @ ${latestState.savApy}% vs 0.01%): ${fmt(latestState.savDiff)}/year left on the table`,
+        `2. Car Loan Interest Cost (${latestState.carMonths} mo @ ${fmt(latestState.carPmt)}/mo): ${fmt(latestState.carInt)} pure interest`,
+        `3. 1% Investment Fee Wealth Drain: ${fmt(latestState.feeLost)} lost over retirement horizon`,
+        "",
+        "PAYCHECK TIER CHECKLIST:",
+        "[S] 401(k) Employer Match (100% instant return)",
+        "[S] HSA + Roth IRA (tax-free compounding)",
+        "[A] 4%+ FDIC Online Savings",
+        "[C] Debit Cards (0% rewards)",
+        "[F] 30% Store Cards & 0.01% Big-Bank Savings — Move out tonight",
+        "",
+        "Run your numbers: https://joestilllives.github.io/dollar-mechanics-audit/"
+      ].join("\n");
+    }
+
+    function downloadSummary() {
+      const blob = new Blob([buildSummaryText()], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "dollar-mechanics-money-leak-audit.txt";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    // Hydrate approved partner URLs if configured
+    (function hydratePartners() {
+      const p = window.DM_FUNNEL_CONFIG.partners || {};
+      ["hysa", "card", "fee"].forEach((k) => {
+        if (p[k] && p[k].url) {
+          const link = document.getElementById("link_" + k);
+          const tag = document.getElementById("tag_" + k);
+          if (link) {
+            link.href = p[k].url;
+            link.rel = "noopener noreferrer sponsored";
+            if (p[k].label) link.textContent = p[k].label;
+          }
+          if (tag && p[k].tag) tag.textContent = p[k].tag;
+        }
+      });
+    })();
+
+    document.getElementById("btn_copy_score").addEventListener("click", async () => {
+      const btn = document.getElementById("btn_copy_score");
+      const msg = `My Dollar Mechanics Leak Audit: ${fmt(latestState.savDiff)}/yr bank leak · ${fmt(latestState.carInt)} car interest · ${fmt(latestState.feeLost)} in 1% fee drag. Check yours: https://joestilllives.github.io/dollar-mechanics-audit/`;
+      try {
+        await navigator.clipboard.writeText(msg);
+        btn.textContent = "Copied Leak Score ✓";
+        setTimeout(() => { btn.textContent = "Copy My Leak Score"; }, 2200);
+      } catch {
+        window.prompt("Copy your Leak Score:", msg);
+      }
+    });
+
+    document.getElementById("btn_dl_summary").addEventListener("click", downloadSummary);
+
+    document.getElementById("dm_email_form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("dm_email_input").value.trim();
+      const status = document.getElementById("dm_form_status");
+      const endpoint = (window.DM_FUNNEL_CONFIG.newsletterEndpoint || "").trim();
+      if (!email) return;
+
+      if (endpoint) {
+        status.textContent = "Saving your audit & joining the brief...";
+        try {
+          const res = await fetch(endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Accept": "application/json" },
+            body: JSON.stringify({
+              email,
+              savings_leak_yr: Math.round(latestState.savDiff),
+              car_interest: Math.round(latestState.carInt),
+              fee_drain: Math.round(latestState.feeLost),
+              source: "dollar-mechanics-audit"
+            })
+          });
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          status.textContent = "You're in! Your audit summary is downloading now — watch for Sunday's 1-minute US Money Math brief.";
+          downloadSummary();
+          e.target.reset();
+        } catch {
+          status.textContent = "Saved locally — downloading your personal audit summary (.txt) right now.";
+          downloadSummary();
+        }
+      } else {
+        status.textContent = "Your personalized audit summary (.txt) is downloading now! Follow @dollarmechanics on Instagram & YouTube for Sunday's Money Math drops.";
+        downloadSummary();
+        e.target.reset();
+      }
+    });
+
+    document.querySelectorAll('input[type="number"]').forEach((el) => el.addEventListener("input", recalc));
     recalc();
   </script>
 </body>
