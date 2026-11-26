@@ -330,6 +330,19 @@
       </div>
     </section>
 
+    <!-- High-Visibility Email Capture directly below Summary Bar (<600px on mobile!) -->
+    <section class="cta-panel" id="brief-signup" style="margin-top:20px; margin-bottom:24px;">
+      <div class="micro" style="margin-bottom:8px;"><span>FREE WEEKLY BRIEF · 1 MINUTE · ZERO FLUFF</span></div>
+      <h2 style="margin:0 0 8px; color:#f3ecdc;">Get Your Custom Leak Checklist + 1-Minute Weekly US Money Math Brief</h2>
+      <p style="margin:0; color:#c7d2e2; max-width:680px;">One chart-backed US money leak exposed every Sunday — plus early access to the Dollar Mechanics Paycheck Automation OS.</p>
+      <form class="email-row" id="dm_email_form">
+        <input type="email" id="dm_email_input" required placeholder="you@domain.com" aria-label="Email address" />
+        <button type="submit" class="btn" id="dm_email_btn">Send My Audit + Join Free →</button>
+      </form>
+      <div class="form-status" id="dm_form_status" role="status" aria-live="polite"></div>
+      <small style="display:block; margin-top:6px; color:#9eb0c8;">Zero spam. Unsubscribe in 1 click. Educational content only.</small>
+    </section>
+
     <div class="grid">
       <!-- Calculator 1: Savings Rate Leak -->
       <article class="card coral-top">
@@ -397,23 +410,10 @@
       </article>
     </div>
 
-    <!-- Contextual Email Capture + Weekly US Money Math Brief -->
-    <section class="cta-panel" id="brief-signup">
-      <div class="micro" style="margin-bottom:8px;"><span>FREE WEEKLY BRIEF · 1 MINUTE · ZERO FLUFF</span></div>
-      <h2 style="margin:0 0 8px; color:#f3ecdc;">Get Your Custom Leak Checklist + 1-Minute Weekly US Money Math Brief</h2>
-      <p style="margin:0; color:#c7d2e2; max-width:680px;">One chart-backed US money leak exposed every Sunday — plus early access to the Dollar Mechanics Paycheck Automation OS (Google Sheets + Notion template).</p>
-      <form class="email-row" id="dm_email_form">
-        <input type="email" id="dm_email_input" required placeholder="you@domain.com" aria-label="Email address" />
-        <button type="submit" class="btn" id="dm_email_btn">Send My Audit + Join Free →</button>
-      </form>
-      <div class="form-status" id="dm_form_status" role="status" aria-live="polite"></div>
-      <small style="display:block; margin-top:6px; color:#9eb0c8;">Zero spam. Unsubscribe in 1 click. Educational content only.</small>
-    </section>
-
-    <!-- FTC-Disclosed Official Benchmarks & Partner Tools -->
+    <!-- Official Benchmarks & Partner Tools (FTC Affiliate Banner auto-shows once any Partner URL is configured) -->
     <section style="margin-top:34px;">
       <h2 style="margin-bottom:10px;">Verified Benchmarks &amp; Tools to Plug These Leaks</h2>
-      <div class="ftc-banner">
+      <div class="ftc-banner" id="ftc_banner" style="display:none;">
         <strong>FTC Affiliate &amp; Editorial Disclosure:</strong> Dollar Mechanics may earn a referral commission when you open an account through partner links marked <em>Partner</em>, at zero extra cost to you. Every benchmark below links to official federal verification databases or regulated US financial tools aligned with the math above.
       </div>
       <div class="aff-grid">
@@ -546,11 +546,13 @@
       URL.revokeObjectURL(url);
     }
 
-    // Hydrate approved partner URLs if configured
+    // Hydrate approved partner URLs if configured (auto-reveals FTC banner only when live partner links exist!)
     (function hydratePartners() {
       const p = window.DM_FUNNEL_CONFIG.partners || {};
+      let hasPartner = false;
       ["hysa", "card", "fee"].forEach((k) => {
         if (p[k] && p[k].url) {
+          hasPartner = true;
           const link = document.getElementById("link_" + k);
           const tag = document.getElementById("tag_" + k);
           if (link) {
@@ -561,6 +563,8 @@
           if (tag && p[k].tag) tag.textContent = p[k].tag;
         }
       });
+      const ftc = document.getElementById("ftc_banner");
+      if (ftc) ftc.style.display = hasPartner ? "block" : "none";
     })();
 
     document.getElementById("btn_copy_score").addEventListener("click", async () => {
@@ -607,8 +611,7 @@
           downloadSummary();
         }
       } else {
-        status.textContent = "Your personalized audit summary (.txt) is downloading now! Follow @dollarmechanics on Instagram & YouTube for Sunday's Money Math drops.";
-        downloadSummary();
+        status.textContent = "Sunday brief onboarding is opening shortly! Tap 'Copy My Leak Score' above to save your exact numbers — or DM AUDIT to @dollarmechanics on Instagram.";
         e.target.reset();
       }
     });
